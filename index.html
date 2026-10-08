@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Luxury Kaya Pro Parlour</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f8f1e7;
+    color:#30251d;
+    font-family:'Montserrat',sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================================
+   ENVELOPE INTRO
+========================================= */
+
+.intro{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+        radial-gradient(circle at center,#fffdf8 0%,#ead7bd 45%,#c5a16d 100%);
+    transition:opacity 1.2s ease,visibility 1.2s ease;
+}
+
+.intro.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.intro-content{
+    text-align:center;
+    width:min(90%,460px);
+}
+
+.intro-small{
+    color:#866126;
+    letter-spacing:5px;
+    font-size:11px;
+    margin-bottom:22px;
+    opacity:.8;
+}
+
+/* Envelope */
+
+.envelope{
+    width:100%;
+    height:270px;
+    position:relative;
+    perspective:1200px;
+    filter:drop-shadow(0 25px 30px rgba(70,45,20,.25));
+}
+
+.envelope-body{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:215px;
+    border-radius:8px;
+    background:linear-gradient(145deg,#fffaf0,#dec095);
+    border:1px solid #ad8038;
+    overflow:hidden;
+    z-index:2;
+}
+
+/* folds */
+
+.envelope-body:before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(145deg,
+    transparent 49.5%,
+    rgba(143,101,42,.45) 50%,
+    transparent 50.5%),
+
+    linear-gradient(215deg,
+    transparent 49.5%,
+    rgba(143,101,42,.45) 50%,
+    transparent 50.5%);
+}
+
+/* Letter */
+
+.letter{
+    position:absolute;
+    z-index:3;
+
+    width:88%;
+    height:225px;
+
+    left:6%;
+    top:35px;
+
+    padding:35px 15px;
+
+    text-align:center;
+
+    background:#fffdf8;
+    border:1px solid #d7ba82;
+
+    box-shadow:0 10px 30px rgba(60,40,20,.18);
+
+    transition:
+        transform 1.5s cubic-bezier(.2,.8,.2,1),
+        opacity .8s;
+}
+
+.letter h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:35px;
+    color:#9b702e;
+}
+
+.letter p{
+    margin-top:7px;
+    letter-spacing:4px;
+    font-size:11px;
+    color:#765b3d;
+}
+
+/* flap */
+
+.flap{
+    position:absolute;
+    z-index:6;
+
+    left:0;
+    top:28px;
+
+    width:100%;
+    height:150px;
+
+    background:linear-gradient(135deg,#f8ead5,#d4ae72);
+
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
+
+    transform-origin:top center;
+
+    transition:
+        transform 1.25s cubic-bezier(.2,.8,.2,1);
+}
+
+/* Seal */
+
+.seal{
+    position:absolute;
+    z-index:10;
+
+    left:50%;
+    top:128px;
+
+    transform:translateX(-50%);
+
+    width:64px;
+    height:64px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(circle,#e9c66e,#96671e);
+
+    border:3px solid #f9e7b5;
+
+    color:white;
+    font-size:26px;
+
+    box-shadow:
+        0 5px 20px rgba(90,50,10,.3);
+
+    animation:sealPulse 2s infinite;
+    transition:opacity .4s;
+}
+
+@keyframes sealPulse{
+    0%,100%{
+        transform:translateX(-50%) scale(1);
+    }
+    50%{
+        transform:translateX(-50%) scale(1.08);
+    }
+}
+
+/* Open animation */
+
+.envelope.open .flap{
+    transform:rotateX(180deg);
+}
+
+.envelope.open .letter{
+    transform:translateY(-175px);
+}
+
+.envelope.open .seal{
+    opacity:0;
+}
+
+.open-btn{
+    margin-top:28px;
+
+    padding:14px 38px;
+
+    border-radius:50px;
+
+    border:1px solid #a87a31;
+
+    background:rgba(255,255,255,.75);
+
+    color:#8d6425;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:0 0 0 rgba(196,154,80,0);
+}
+
+.open-btn:hover{
+    background:#a87a31;
+    color:white;
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 10px 30px rgba(130,85,20,.25);
+}
+
+/* =========================================
+   GOLD PARTICLES
+========================================= */
+
+.particle{
+    position:fixed;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:#d3a44e;
+    pointer-events:none;
+    opacity:.5;
+    animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+    from{
+        transform:translateY(100vh) scale(.5);
+        opacity:0;
+    }
+    20%{opacity:.7;}
+    80%{opacity:.5;}
+    to{
+        transform:translateY(-20vh) scale(1.2);
+        opacity:0;
+    }
+}
+
+/* =========================================
+   MAIN WEBSITE
+========================================= */
+
+.main{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+.main.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 7%;
+
+    background:rgba(35,24,17,.72);
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid rgba(222,183,108,.2);
+}
+
+.logo{
+    font-family:'Cormorant Garamond',serif;
+    color:#edce8a;
+    font-size:25px;
+    font-weight:600;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+    letter-spacing:1px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#e6c67e;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:100px 20px 60px;
+
+    position:relative;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        rgba(25,17,12,.65),
+        rgba(25,17,12,.82)
+    ),
+    url("https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=85")
+    center/cover fixed;
+}
+
+.hero-content{
+    max-width:900px;
+
+    animation:heroReveal 1.5s ease forwards;
+}
+
+@keyframes heroReveal{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.women-badge{
+    display:inline-block;
+
+    padding:9px 20px;
+
+    border:1px solid #d8b66c;
+    border-radius:50px;
+
+    color:#f0d18a;
+
+    font-size:11px;
+    letter-spacing:2px;
+
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(55px,9vw,105px);
+
+    line-height:.8;
+
+    color:#f0d18b;
+
+    text-shadow:
+        0 5px 30px rgba(0,0,0,.7);
+}
+
+.hero h2{
+    margin-top:28px;
+
+    font-size:clamp(16px,3vw,25px);
+
+    letter-spacing:9px;
+
+    font-weight:400;
+}
+
+.hero-line{
+    width:100px;
+    height:1px;
+
+    background:#d7b46d;
+
+    margin:28px auto;
+}
+
+.hero p{
+    max-width:650px;
+
+    margin:auto;
+
+    line-height:1.9;
+
+    color:#eee;
+
+    font-size:14px;
+}
+
+.hero-buttons{
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:35px;
+}
+
+.btn{
+    display:inline-block;
+
+    padding:14px 28px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    background:#c49a50;
+
+    color:white;
+
+    border:1px solid #e6ca8b;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+
+    transition:.35s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+
+    background:#a77a31;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.2);
+}
+
+.btn-outline{
+    background:transparent;
+}
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+section{
+    padding:90px 20px;
+}
+
+.section-title{
+    text-align:center;
+
+    margin-bottom:55px;
+}
+
+.section-title small{
+    color:#a4772f;
+
+    letter-spacing:4px;
+
+    font-size:10px;
+}
+
+.section-title h2{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:48px;
+
+    color:#956b2a;
+
+    margin-top:10px;
+}
+
+.section-title p{
+    color:#776657;
+
+    margin-top:10px;
+}
+
+/* =========================================
+   ABOUT CARDS
+========================================= */
+
+.info-grid{
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:22px;
+}
+
+.info-card{
+    background:white;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    border:1px solid #ead8bc;
+
+    box-shadow:
+        0 10px 35px rgba(90,60,25,.08);
+
+    transition:.4s;
+}
+
+.info-card:hover{
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 20px 45px rgba(90,60,25,.15);
+}
+
+.info-icon{
+    font-size:35px;
+
+    margin-bottom:18px;
+}
+
+.info-card h3{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:25px;
+
+    color:#9a702e;
+
+    margin-bottom:10px;
+}
+
+/* =========================================
+   SERVICES
+========================================= */
+
+.services{
+    background:#fffaf3;
+}
+
+.service-grid{
+    max-width:1150px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+
+.service{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:35px 28px;
+
+    background:#f8eee0;
+
+    border-radius:22px;
+
+    border:1px solid #e7d1ad;
+
+    transition:.45s;
+}
+
+.service:before{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border-radius:50%;
+
+    background:#dfbb70;
+
+    opacity:.12;
+
+    right:-30px;
+    top:-30px;
+
+    transition:.4s;
+}
+
+.service:hover{
+    transform:translateY(-10px) scale(1.02);
+
+    box-shadow:
+        0 20px 45px rgba(90,60,25,.14);
+}
+
+.service:hover:before{
+    transform:scale(2.5);
+}
+
+.service-icon{
+    font-size:40px;
+}
+
+.service h3{
+    font-family:'Cormorant Garamond',serif;
+
+    color:#936a2c;
+
+    font-size:27px;
+
+    margin:15px 0 8px;
+}
+
+.service p{
+    color:#756453;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+/* =========================================
+   PACKAGES
+========================================= */
+
+.package-grid{
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+}
+
+.package{
+    padding:40px 25px;
+
+    background:white;
+
+    text-align:center;
+
+    border-radius:22px;
+
+    border:1px solid #d8b77c;
+
+    box-shadow:
+        0 12px 35px rgba(70,45,20,.08);
+
+    transition:.4s;
+}
+
+.package:hover{
+    transform:translateY(-10px);
+}
+
+.package h3{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:30px;
+
+    color:#986e2c;
+}
+
+.package p{
+    margin:20px 0;
+
+    line-height:2;
+
+    color:#716050;
+
+    font-size:13px;
+}
+
+/* =========================================
+   REVIEWS
+========================================= */
+
+.reviews{
+    background:
+        linear-gradient(135deg,#f1e1cc,#fff8ef);
+}
+
+.review{
+    max-width:750px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:45px 30px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:
+        0 15px 40px rgba(80,50,20,.1);
+}
+
+.stars{
+    color:#c69439;
+
+    font-size:25px;
+
+    letter-spacing:4px;
+
+    margin-bottom:15px;
+}
+
+.rating{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:30px;
+
+    color:#986d2c;
+}
+
+.review p{
+    margin-top:20px;
+
+    line-height:1.8;
+
+    color:#66584c;
+}
+
+/* =========================================
+   LOCATION
+========================================= */
+
+.location{
+    background:#2b211b;
+
+    color:white;
+}
+
+.location-box{
+    max-width:900px;
+
+    margin:auto;
+
+    padding:45px 25px;
+
+    text-align:center;
+
+    border:1px solid rgba(224,187,108,.4);
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.04);
+}
+
+.location-icon{
+    font-size:50px;
+
+    animation:locationPulse 2s infinite;
+}
+
+@keyframes locationPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.12);
+    }
+}
+
+.location-box h2{
+    font-family:'Cormorant Garamond',serif;
+
+    color:#e6c681;
+
+    font-size:40px;
+
+    margin:15px 0;
+}
+
+.address{
+    line-height:1.8;
+
+    color:#ddd;
+
+    margin-bottom:25px;
+}
+
+/* =========================================
+   CONTACT
+========================================= */
+
+.contact{
+    text-align:center;
+
+    background:#f8eee0;
+}
+
+.contact h2{
+    font-family:'Cormorant Garamond',serif;
+
+    color:#936a2b;
+
+    font-size:42px;
+}
+
+.contact-number{
+    display:inline-block;
+
+    margin:20px;
+
+    color:#966d2c;
+
+    font-size:20px;
+
+    text-decoration:none;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+    background:#17100c;
+
+    color:#aaa;
+
+    text-align:center;
+
+    padding:25px;
+
+    font-size:11px;
+
+    letter-spacing:1px;
+}
+
+/* =========================================
+   SCROLL REVEAL
+========================================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(50px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+}
+
+.reveal.active{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:15px 20px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .hero{
+        background-attachment:scroll;
+    }
+
+    .hero h1{
+        font-size:58px;
+    }
+
+    .hero h2{
+        letter-spacing:5px;
+    }
+
+    section{
+        padding:70px 15px;
+    }
+
+    .section-title h2{
+        font-size:40px;
+    }
+
+    .envelope{
+        height:235px;
+    }
+
+    .envelope-body{
+        height:190px;
+    }
+
+    .letter{
+        height:200px;
+        top:30px;
+    }
+
+    .letter h1{
+        font-size:28px;
+    }
+
+    .flap{
+        top:18px;
+    }
+
+    .seal{
+        top:105px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================
+     INTRO ENVELOPE
+========================================= -->
+
+<div class="intro" id="intro">
+
+    <div class="intro-content">
+
+        <div class="intro-small">
+            A BEAUTIFUL EXPERIENCE AWAITS
+        </div>
+
+        <div class="envelope" id="envelope">
+
+            <div class="letter">
+
+                <h1>Luxury Kaya Pro</h1>
+
+                <p>BEAUTY PARLOUR</p>
+
+                <p style="margin-top:25px;letter-spacing:1px;">
+                    Welcome to your<br>
+                    beautiful journey.
+                </p>
+
+            </div>
+
+            <div class="envelope-body"></div>
+
+            <div class="flap"></div>
+
+            <div class="seal">
+                ✦
+            </div>
+
+        </div>
+
+        <button class="open-btn" id="openBtn">
+            OPEN INVITATION
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     MAIN WEBSITE
+========================================= -->
+
+<div class="main" id="main">
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Luxury Kaya Pro
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#services">Services</a>
+
+        <a href="#packages">Packages</a>
+
+        <a href="#location">Location</a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="women-badge">
+            👩 WOMEN OWNED
+        </div>
+
+        <h1>
+            Luxury Kaya Pro
+        </h1>
+
+        <h2>
+            BEAUTY PARLOUR
+        </h2>
+
+        <div class="hero-line"></div>
+
+        <p>
+            Step into a world of elegance, beauty and self-care.
+            Discover professional beauty services in a warm,
+            luxurious and welcoming environment.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="tel:9314999300" class="btn">
+                📞 CALL NOW
+            </a>
+
+            <a href="#services" class="btn btn-outline">
+                ✨ EXPLORE SERVICES
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- INFO -->
+
+<section>
+
+    <div class="section-title reveal">
+
+        <small>THE EXPERIENCE</small>
+
+        <h2>Beauty With Elegance</h2>
+
+        <p>
+            Designed around your beauty and comfort.
+        </p>
+
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-card reveal">
+
+            <div class="info-icon">⭐</div>
+
+            <h3>4.4 Rating</h3>
+
+            <p>
+                A trusted beauty experience.
+            </p>
+
+        </div>
+
+
+        <div class="info-card reveal">
+
+            <div class="info-icon">👩</div>
+
+            <h3>Women Owned</h3>
+
+            <p>
+                Proudly women-owned beauty parlour.
+            </p>
+
+        </div>
+
+
+        <div class="info-card reveal">
+
+            <div class="info-icon">🕚</div>
+
+            <h3>Opening Hours</h3>
+
+            <p>
+                11:00 AM – 8:30 PM
+            </p>
+
+        </div>
+
+
+        <div class="info-card reveal">
+
+            <div class="info-icon">📞</div>
+
+            <h3>Call Us</h3>
+
+            <p>
+                9314999300
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section class="services" id="services">
+
+    <div class="section-title reveal">
+
+        <small>OUR SERVICES</small>
+
+        <h2>Beauty Services</h2>
+
+        <p>
+            Choose the experience that's perfect for you.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                💇‍♀️
+            </div>
+
+            <h3>Hair Styling</h3>
+
+            <p>
+                Elegant hairstyles and professional hair care
+                for your everyday and special occasions.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                💄
+            </div>
+
+            <h3>Makeup</h3>
+
+            <p>
+                Beautiful makeup looks designed around your
+                occasion and personal style.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                ✨
+            </div>
+
+            <h3>Facial & Glow</h3>
+
+            <p>
+                Relaxing beauty care for a fresh and
+                refreshed appearance.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                💅
+            </div>
+
+            <h3>Nail Care</h3>
+
+            <p>
+                Stylish nail care for a polished,
+                beautiful finish.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                👰
+            </div>
+
+            <h3>Bridal Beauty</h3>
+
+            <p>
+                Special beauty preparation for your
+                memorable day.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-icon">
+                🌸
+            </div>
+
+            <h3>Beauty Care</h3>
+
+            <p>
+                Personalized beauty and self-care
+                experiences.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PACKAGES -->
+
+<section id="packages">
+
+    <div class="section-title reveal">
+
+        <small>SPECIAL COLLECTION</small>
+
+        <h2>Beauty Packages</h2>
+
+        <p>
+            Beautiful moments deserve beautiful care.
+        </p>
+
+    </div>
+
+
+    <div class="package-grid">
+
+        <div class="package reveal">
+
+            <h3>Glow Package</h3>
+
+            <p>
+                Facial Care<br>
+                Skin Glow Treatment<br>
+                Beauty Finishing
+            </p>
+
+            <a href="tel:9314999300" class="btn">
+                ENQUIRE
+            </a>
+
+        </div>
+
+
+        <div class="package reveal">
+
+            <h3>Party Ready</h3>
+
+            <p>
+                Makeup<br>
+                Hair Styling<br>
+                Final Touch
+            </p>
+
+            <a href="tel:9314999300" class="btn">
+                ENQUIRE
+            </a>
+
+        </div>
+
+
+        <div class="package reveal">
+
+            <h3>Bridal Beauty</h3>
+
+            <p>
+                Bridal Makeup<br>
+                Hair Styling<br>
+                Complete Beauty Care
+            </p>
+
+            <a href="tel:9314999300" class="btn">
+                ENQUIRE
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REVIEWS -->
+
+<section class="reviews">
+
+    <div class="section-title reveal">
+
+        <small>OUR RATING</small>
+
+        <h2>Customer Love</h2>
+
+    </div>
+
+
+    <div class="review reveal">
+
+        <div class="stars">
+            ★ ★ ★ ★ ☆
+        </div>
+
+        <div class="rating">
+            4.4 / 5
+        </div>
+
+        <p>
+            A beautiful destination for beauty,
+            elegance and self-care.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- LOCATION -->
+
+<section class="location" id="location">
+
+    <div class="section-title reveal">
+
+        <small style="color:#d6b56d;">
+            FIND US
+        </small>
+
+        <h2 style="color:#e7c982;">
+            Visit Our Parlour
+        </h2>
+
+    </div>
+
+
+    <div class="location-box reveal">
+
+        <div class="location-icon">
+            📍
+        </div>
+
+        <h2>
+            Luxury Kaya Pro Parlour
+        </h2>
+
+        <div class="address">
+
+            Near Lalibai Park Corner,<br>
+            Outside Nathusar Gate,<br>
+            Naya Shahar, Bikaner,<br>
+            Rajasthan – 334004
+
+        </div>
+
+        <button
+            class="btn"
+            onclick="openMaps()"
+            style="cursor:pointer;"
+        >
+            🗺️ GET DIRECTIONS
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact">
+
+    <div class="reveal">
+
+        <h2>
+            Ready For Your Beauty Experience?
+        </h2>
+
+        <p style="margin-top:15px;">
+            Book your visit or contact us today.
+        </p>
+
+        <a
+            href="tel:9314999300"
+            class="contact-number"
+        >
+            📞 9314999300
+        </a>
+
+        <br>
+
+        <a
+            href="tel:9314999300"
+            class="btn"
+        >
+            CALL LUXURY KAYA PRO
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 Luxury Kaya Pro Parlour
+    <br><br>
+    Women Owned • Bikaner, Rajasthan
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   CREATE GOLD PARTICLES
+========================================= */
+
+for(let i = 0; i < 35; i++){
+
+    const particle = document.createElement("div");
+
+    particle.className = "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+        (6 + Math.random() * 8) + "s";
+
+    particle.style.animationDelay =
+        Math.random() * 6 + "s";
+
+    particle.style.width =
+        (2 + Math.random() * 4) + "px";
+
+    particle.style.height =
+        particle.style.width;
+
+    document.body.appendChild(particle);
+}
+
+
+/* =========================================
+   ENVELOPE
+========================================= */
+
+const openBtn =
+    document.getElementById("openBtn");
+
+const envelope =
+    document.getElementById("envelope");
+
+const intro =
+    document.getElementById("intro");
+
+const main =
+    document.getElementById("main");
+
+
+openBtn.addEventListener("click", function(){
+
+    envelope.classList.add("open");
+
+    openBtn.style.opacity = "0";
+
+    openBtn.style.pointerEvents = "none";
+
+
+    setTimeout(function(){
+
+        intro.classList.add("hide");
+
+        main.classList.add("show");
+
+        window.scrollTo({
+            top:0,
+            behavior:"instant"
+        });
+
+    },1800);
+
+});
+
+
+/* =========================================
+   SCROLL REVEAL
+========================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+const revealObserver =
+    new IntersectionObserver(
+
+        function(entries){
+
+            entries.forEach(function(entry){
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("active");
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold:.15
+        }
+
+    );
+
+
+revealElements.forEach(function(element){
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =========================================
+   GOOGLE MAPS
+========================================= */
+
+function openMaps(){
+
+    const address =
+        "Luxury Kaya Pro Parlour, Near Lalibai Park Corner, Outside Nathusar Gate, Naya Shahar, Bikaner, Rajasthan 334004";
+
+    const mapsURL =
+        "https://www.google.com/maps/search/?api=1&query="
+        + encodeURIComponent(address);
+
+    window.open(
+        mapsURL,
+        "_blank"
+    );
+}
+
+</script>
+
+</body>
+</html>
